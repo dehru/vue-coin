@@ -13,3 +13,18 @@ app.get('/api/coins', (req, res) => {
             console.log('api call failed', errorResponse)
         })
 })
+
+app.get('/api/market_data', (req, res) => {
+    axious.get('https://api.coinmarketcap.com/v2/global')
+        .then((serverResponse) => {
+          res.setHeader('Cache-Control', 'no-cache');
+          res.json(serverResponse.data)
+        })
+        .catch((errorResponse) => {
+            console.log('api call failed', errorResponse)
+        })
+})
+
+app.listen(app.get('port'), () => {
+    console.log(`server is running on http://localhost:${app.get('port')}`)
+})
